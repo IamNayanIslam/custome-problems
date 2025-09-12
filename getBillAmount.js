@@ -16,17 +16,21 @@ let log = console.log;
  * @returns {number} The total bill amount.
  */
 function getBillAmount(electricityUnit) {
+  let remainingUnit = electricityUnit;
+  let billAmount = 0;
+
   // Check for invalid input. Usage must be a positive number.
   if (electricityUnit <= 0) {
-    log("Your Electricity Usage Must Be More Than Zero Unit");
     return 0;
   }
+
+  //I have written two solution for this problem one with the for of loop and the other one with repeated if condition
+  //I have commented out the solution with the repeated if condition but that also works perfectly
+  //If you want to test the repeated if condition solution, if it works or not you can comment out the for of loop solution and test the second solution.
 
   // Define the billing tiers with their starting unit and rate.
   // The tiers are arranged in descending order to simplify the calculation
   // by processing the highest-priced units first.
-  let remainingUnit = electricityUnit;
-  let billAmount = 0;
   const tiers = [
     { start: 201, rate: 9 }, // Rate for units 201 and above
     { start: 151, rate: 8 }, // Rate for units 151-200
