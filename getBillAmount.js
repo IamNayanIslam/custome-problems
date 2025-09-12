@@ -25,13 +25,19 @@ function getBillAmount(electricityUnit) {
 
   let remainingUnit = electricityUnit;
 
-  let limits = [201, 200, 150, 100, 50];
-  let rates = [9, 8, 7, 6, 4];
+  const tires = [
+    { start: 201, rate: 9 },
+    { start: 151, rate: 8 },
+    { start: 101, rate: 7 },
+    { start: 51, rate: 6 },
+    { start: 1, rate: 4 },
+  ];
 
-  for (let i = 0; i < limits.length; i++) {
-    if (remainingUnit >= limits[i]) {
-      billAmount += (remainingUnit - limits[i + 1]) * rates[i];
-      remainingUnit = limits[i + 1];
+  for (const tire of tires) {
+    if (remainingUnit >= tire.start) {
+      const unitInThisTire = remainingUnit - tire.start + 1;
+      billAmount += unitInThisTire * tire.rate;
+      remainingUnit -= unitInThisTire;
     }
   }
 
@@ -80,4 +86,4 @@ function getBillAmount(electricityUnit) {
 
   return billAmount;
 }
-log(getBillAmount(650));
+log(getBillAmount(3));
