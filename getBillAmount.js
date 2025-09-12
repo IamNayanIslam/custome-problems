@@ -7,21 +7,35 @@ function getBillAmount(electricityUnit) {
   //150 - 200 unit - BDT. 8 - rangeFour
   //201+ unit - BDT. 9
 
+  /*
   let limitOne = 50;
   let limitTwo = 100;
   let limitThree = 150;
   let limitFour = 200;
 
+  
   let rateOne = 4;
   let rateTwo = 6;
   let rateThree = 7;
   let rateFour = 8;
   let rateFive = 9;
+*/
 
   let billAmount = 0;
 
   let remainingUnit = electricityUnit;
 
+  let limits = [201, 200, 150, 100, 50];
+  let rates = [9, 8, 7, 6, 4];
+
+  for (let i = 0; i < limits.length; i++) {
+    if (remainingUnit >= limits[i]) {
+      billAmount += (remainingUnit - limits[i + 1]) * rates[i];
+      remainingUnit = limits[i + 1];
+    }
+  }
+
+  /*
   if (electricityUnit <= 0) {
     console.log("Your Electricity Usage Must Be More Than Zero Unit");
     return 0;
@@ -61,6 +75,8 @@ function getBillAmount(electricityUnit) {
     billAmount += remainingUnit * rateOne;
     remainingUnit = 0;
   }
+
+  */
 
   return billAmount;
 }

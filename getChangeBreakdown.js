@@ -15,6 +15,28 @@ function getChangeBreakdown(amount) {
    The `for` loop below achieves the same result in a more concise and scalable way.
   */
 
+  if (remainingAmount <= 0) {
+    console.log("Your amount must be more than Zero!");
+    // Return an object with zero counts to maintain consistent return type
+    return {
+      totalNoteCount: 0,
+      notesBreakdown: {},
+    };
+  }
+
+  // Loop through each note denomination
+  for (let i = 0; i < notes.length; i++) {
+    // Check if the remaining amount is greater than or equal to the current note
+    if (remainingAmount >= notes[i]) {
+      // Calculate how many of the current note can be used
+      eachNoteCount[notes[i]] = Math.floor(remainingAmount / notes[i]);
+      // Update the remaining amount by taking the remainder
+      remainingAmount = remainingAmount % notes[i];
+      // Add the count of the current note to the total number of notes
+      numberOfNotes += eachNoteCount[notes[i]];
+    }
+  }
+
   /*
   if (remainingAmount >= 1000) {
     eachNoteCount.oneThousand = Math.floor(remainingAmount / 1000);
@@ -76,28 +98,6 @@ function getChangeBreakdown(amount) {
     remainingAmount = remainingAmount % 1;
   }
   */
-
-  if (remainingAmount <= 0) {
-    console.log("Your amount must be more than Zero!");
-    // Return an object with zero counts to maintain consistent return type
-    return {
-      totalNoteCount: 0,
-      notesBreakdown: {},
-    };
-  }
-
-  // Loop through each note denomination
-  for (let i = 0; i < notes.length; i++) {
-    // Check if the remaining amount is greater than or equal to the current note
-    if (remainingAmount >= notes[i]) {
-      // Calculate how many of the current note can be used
-      eachNoteCount[notes[i]] = Math.floor(remainingAmount / notes[i]);
-      // Update the remaining amount by taking the remainder
-      remainingAmount = remainingAmount % notes[i];
-      // Add the count of the current note to the total number of notes
-      numberOfNotes += eachNoteCount[notes[i]];
-    }
-  }
 
   // Return an object containing both the total note count and the breakdown
   return {
